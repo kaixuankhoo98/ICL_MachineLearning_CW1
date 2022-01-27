@@ -49,7 +49,12 @@ and invoke the methods/functions defined in ``classification.py`` and ``improvem
 
 ### Instructions
 
-< Insert your own instructions here >
+- ``read_data.py``
+
+	* Methods and functions described in this file:
+		- `read_dataset(filename)` takes a file and returns a tuple of x, y and classes
+		- `display_data_information(x,y,classes)` prints to screen some basic information about the dataset
+		- `understand_attributes(x)` displays information about the dataset x (min, max, etc.) <incomplete>
 
 
 
