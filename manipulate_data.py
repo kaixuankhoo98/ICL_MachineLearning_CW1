@@ -7,16 +7,7 @@ import matplotlib.pyplot as plt
 
 
 rd.display_data_information(x,y,classes)
-
-# y_shape = []
-# temp = 0
-# for letter in classes:
-#     y_shape.append(temp)
-#     temp = temp+1
-# for number in y_shape:
-#     print(np.count_nonzero(y==number), end=" "),
-#     print("datasets for", end=" "),
-#     print(classes[number])
+rd.understand_attributes(x)
 
 # class_names = []
 # for letter in classes:

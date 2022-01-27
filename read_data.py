@@ -13,7 +13,7 @@ def read_dataset(filepath):
             x.append(row[:-1])
             y_labels.append(row[-1])
     
-    x = np.array(x)
+    x = np.array(x).astype(np.int)
     [classes, y] = np.unique(y_labels, return_inverse=True)
 
     return (x, y, classes)
@@ -36,3 +36,9 @@ def display_data_information(x,y,classes):
         print(np.count_nonzero(y==number), end=" "),
         print("datasets for", end=" "),
         print(classes[number])
+
+def understand_attributes(x):
+    print("Minimum values for x", end=" ")
+    print(x.min(axis=0))
+    print("Maximum values for x", end=" ")
+    print(x.max(axis=0))
