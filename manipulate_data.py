@@ -9,12 +9,12 @@ import matplotlib.pyplot as plt
 rd.display_data_information(x,y,classes)
 rd.understand_attributes(x)
 
-# class_names = []
-# for letter in classes:
-#     class_names.append(letter)
-# print(class_names)
-# plt.figure()
-# plt.scatter(x[:,0], x[:,1], c=y, cmap=plt.cm.Set1, edgecolor='k')
-# plt.xlabel(class_names[0])
-# plt.ylabel(class_names[1])
-# plt.show()
+class_names = []
+for letter in classes:
+    class_names.append(letter)
+print(class_names)
+plt.figure()
+plt.scatter(x[:,1], x[:,2], c=y, cmap=plt.cm.Set1, edgecolor='k')
+plt.xlabel(class_names[1])
+plt.ylabel(class_names[2])
+plt.show()
