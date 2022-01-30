@@ -2,7 +2,10 @@
 #     print(line.strip())
 
 from re import M
+from attr import attr
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 def read_dataset(filepath):
     x = []
@@ -28,17 +31,25 @@ def display_data_information(x,y,classes):
     print(classes)
     
     y_shape = []
+    y_values = []
     temp = 0
     for letter in classes:
         y_shape.append(temp)
         temp = temp+1
     for number in y_shape:
+        y_values.append(np.count_nonzero(y==number))
         print(np.count_nonzero(y==number), end=" "),
         print("datasets for", end=" "),
         print(classes[number])
+    # print histogram
 
 def understand_attributes(x):
     print("Minimum values for x", end=" ")
     print(x.min(axis=0))
     print("Maximum values for x", end=" ")
     print(x.max(axis=0))
+
+## TAKES X, Y, AND ATTRIBUTE. returns a sorted array of x and y
+def sort_list(x, y, attribute):
+    sorted_x,sorted_y = x[np.argsort(x[:, attribute])], y[np.argsort(x[:,attribute])]
+    return (sorted_x,sorted_y)
