@@ -50,6 +50,10 @@ def understand_attributes(x):
     print(x.max(axis=0))
 
 ## TAKES X, Y, AND ATTRIBUTE. returns a sorted array of x and y
-def sort_list(x, y, attribute):
+def sort_list_by_attribute(x, y, attribute):
     sorted_x,sorted_y = x[np.argsort(x[:, attribute])], y[np.argsort(x[:,attribute])]
     return (sorted_x,sorted_y)
+
+def only_certain_y(x, y, index):
+    x_return = x[y==index]
+    return x_return
