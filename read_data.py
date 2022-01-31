@@ -6,6 +6,7 @@ from attr import attr
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import scipy as sp
 
 def read_dataset(filepath):
     x = []
@@ -57,3 +58,11 @@ def sort_list_by_attribute(x, y, attribute):
 def only_certain_y(x, y, index):
     x_return = x[y==index]
     return x_return
+
+def get_probability_distribution(x,y,letter,attribute):
+    data = only_certain_y(x,y,attribute)[:,letter]
+    print(data)
+    plt.figure()
+    plt.hist(data)
+    plt.show()
+

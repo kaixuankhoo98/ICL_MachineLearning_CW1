@@ -17,9 +17,7 @@ new_x_onlyC = rd.only_certain_y(x,y,1)
 print(new_x_onlyA)
 print(new_x_onlyC)
 
-plt.figure()
-plt.hist(rd.only_certain_y(x,y,4)[:,0])
-plt.show()
+rd.get_probability_distribution(x,y,0,0)
 
 # class_names = []
 # for letter in classes:
