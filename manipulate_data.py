@@ -1,16 +1,18 @@
 from calendar import c
 import read_data as rd
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 
-file_name = "data/train_full.txt"
+# Don't need these in this file I think.
+# import numpy as np
+# import pandas as pd
+# import matplotlib.pyplot as plt
+
+file_name = "data/toy.txt"
 
 (x, y, classes) = rd.read_dataset(file_name)
 # arg was "intro2ml_cw1_13/data/train_full.txt" just now.
 # was getting an error-- fileNotFoundError.
 
-print("For train_full.txt")  # this was for "train_sub.txt". prob just a typo?
+print("For toy.txt")  # this was for "train_sub.txt". prob just a typo?
 rd.display_data_information(x, y, classes)
 
 new_list_x, new_list_y = rd.sort_list_by_attribute(x, y, 0)
