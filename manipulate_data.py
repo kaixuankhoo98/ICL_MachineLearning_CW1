@@ -1,6 +1,8 @@
 from calendar import c
 import read_data as rd
 
+# from max_info_gain import induce_decision_tree
+
 # Don't need these in this file I think.
 # import numpy as np
 # import pandas as pd
@@ -24,6 +26,9 @@ print(new_x_onlyA)
 print(new_x_onlyC)
 
 rd.get_probability_distribution(x, y, 0, 0)
+
+print("\n")
+print(len(y))
 
 # class_names = []
 # for letter in classes:
