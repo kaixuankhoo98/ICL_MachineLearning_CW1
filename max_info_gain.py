@@ -73,9 +73,7 @@ def calculate_best_info_gain(x, y, classes):
             )
             # CALUCLATE INFORMATION GAIN FOR splitting ALONG THIS ATTRIBUTE
             # AND THIS PARTICULAR VALUE
-            proportion = len(left_filtered_y) / (
-                len(left_filtered_y) + len(left_filtered_x)
-            )
+            proportion = len(left_filtered_y) / number_of_instances
             info_gained = dataset_entrophy - (
                 proportion * left_entrophy + (1 - proportion) * right_entrophy
             )
