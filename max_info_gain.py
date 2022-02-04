@@ -17,8 +17,9 @@ def calculate_entrophy(x, y, classes):
     Returns:
         float: the entrophy for the given dataset.
     """
+
     number_of_instances = len(y)
-    label_frequencies = dict.fromkeys(classes, 0) 
+    label_frequencies = dict.fromkeys(classes, 0)
     for label in classes[y]:
         label_frequencies[label] += 1
     entrophy = 0.0
@@ -95,7 +96,7 @@ def calculate_best_info_gain(x, y, classes):
 def find_best_node(x, y, classes):
     best_attribute_index, best_attribute_value = calculate_best_info_gain(x, y, classes)
 
-    best_node = Node(best_attribute_index, best_attribute_value)
+    best_node = Node(best_attribute_index, best_attribute_value,x,y,classes)
 
     return best_node
 
@@ -110,8 +111,25 @@ def same_labels (y):
 
 # helper function for induce_decision_tree
 def split_dataset(x, y, classes, best_node):
-    
-    pass
+    attribute_to_split_by = best_node.attribute_index
+    attribute_value_to_split_by = best_node.attribute_value
+    left_filter = x[:, attribute_to_split_by] <= attribute_value_to_split_by
+    left_child_x = x[left_filter]
+    left_child_y = y[left_filter]
+    left_child_classes = np.unique(left_child_y)
+    right_filter = np.invert(left_filter)
+    right_child_x = x[right_filter]
+    right_child_y = y[right_filter]
+    right_child_classes = np.unique(right_child_y)
+    return left_child_x, left_child_y, left_child_classes, right_child_x, right_child_y, right_child_classes
+
+def no_more_splits(x):
+    if len(x) < 2:
+        return True
+    else:
+        return False 
+
+
 
 # Main Function, follows pseudocode given in spec.
 def induce_decision_tree(x, y, classes):
@@ -120,10 +138,15 @@ def induce_decision_tree(x, y, classes):
     Input:
     """
     # BASE CASES: all instances in 
-    if same_labels(y):
-        return
+    if len(x) < 2 or same_labels(y):
+        leaf_node = Node(None, None, x,y,classes)
+        
+        return leaf_node
     else:
         best_node = find_best_node(x, y, classes)
-        # child_data_left, child_data_right = split_dataset(x, y, classes, best_node)
-        
-    pass
+        left_x, left_y, left_classes, right_x, right_y, right_classes = split_dataset(x, y, classes, best_node)
+        child_node_left = induce_decision_tree(left_x, left_y, left_classes)
+        best_node.add_child(child_node_left)
+        child_node_right = induce_decision_tree(right_x, right_y, right_classes)
+        best_node.add_child(child_node_right)
+        return best_node

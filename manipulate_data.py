@@ -1,5 +1,6 @@
 from calendar import c
 import read_data as rd
+import max_info_gain
 
 # from max_info_gain import induce_decision_tree
 
@@ -17,18 +18,23 @@ file_name = "data/toy.txt"
 print("For toy.txt")  # this was for "train_sub.txt". prob just a typo?
 rd.display_data_information(x, y, classes)
 
-new_list_x, new_list_y = rd.sort_list_by_attribute(x, y, 0)
-# print(new_list_x, new_list_y)
+print("Trying info_gain function")
+max_info_gain.calculate_best_info_gain(x, y, classes)
+print("Now, trying induce decision tree")
+max_info_gain.induce_decision_tree(x, y, classes)
 
-new_x_onlyA = rd.only_certain_y(x, y, 0)
-new_x_onlyC = rd.only_certain_y(x, y, 1)
-print(new_x_onlyA)
-print(new_x_onlyC)
+# new_list_x, new_list_y = rd.sort_list_by_attribute(x, y, 0)
+# # print(new_list_x, new_list_y)
 
-rd.get_probability_distribution(x, y, 0, 0)
+# new_x_onlyA = rd.only_certain_y(x, y, 0)
+# new_x_onlyC = rd.only_certain_y(x, y, 1)
+# print(new_x_onlyA)
+# print(new_x_onlyC)
 
-print("\n")
-print(len(y))
+# rd.get_probability_distribution(x, y, 0, 0)
+
+# print("\n")
+# print(len(y))
 
 # class_names = []
 # for letter in classes:
