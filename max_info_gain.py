@@ -2,6 +2,7 @@
 
 import math  # for log computation
 import numpy as np
+from node import Node
 
 
 def calculate_entrophy(x, y, classes):
@@ -17,10 +18,10 @@ def calculate_entrophy(x, y, classes):
         float: the entrophy for the given dataset.
     """
     number_of_instances = len(y)
-    label_frequencies = dict.fromkeys(classes, 0)
-    for label in y:
+    label_frequencies = dict.fromkeys(classes, 0) 
+    for label in classes[y]:
         label_frequencies[label] += 1
-
+    print(label_frequencies)
     entrophy = 0.0
     for label, value in label_frequencies.items():
         if value != 0:
@@ -58,7 +59,7 @@ def calculate_best_info_gain(x, y, classes):
             attribute_min_value, attribute_max_value + 1
         ):  # +1 to include max
             # CALCULATE ENTROPHY FOR LEFT
-            left_filter = x[:, attribute_index] >``= attribute_value
+            left_filter = x[:, attribute_index] >= attribute_value
             left_filtered_x = x[left_filter, :]
             left_filtered_y = y[left_filter]
             left_entrophy = calculate_entrophy(
@@ -92,21 +93,34 @@ def calculate_best_info_gain(x, y, classes):
     print(max_info_gained, best_attribute_index, best_attribute_value)
     return (best_attribute_index, best_attribute_value)
 
+def find_best_node(x, y, classes):
+    best_attribute_index, best_attribute_value = calculate_best_info_gain(x, y, classes)
+
+    best_node = Node(best_attribute_index, best_attribute_value)
+
+    return best_node
 
 def same_labels (y):
-    #TODO: think about using a ndarry method instead.
+    #TODO: think about optimizing using an ndarry method instead.
     test = y[0]
     for i in y:
         if (test != i):
-            return false
-    return true
+            return False
+    return True
 
+def split_dataset(x, y, ):
+
+    pass
 
 # Main Function, follows pseudocode given in spec.
-def induce_decision_tree():
+def induce_decision_tree(x, y, classes):
     """
 
     Input:
     """
-    if same_labels()
+    if same_labels(y):
+        return
+    else:
+        best_node = find_best_node(x, y, classes)
+        
     pass
