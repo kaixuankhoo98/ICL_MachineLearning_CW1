@@ -20,8 +20,10 @@ def calculate_entrophy(x, y, classes):
 
     number_of_instances = len(y)
     label_frequencies = dict.fromkeys(classes, 0)
-    for label in classes[y]:
-        label_frequencies[label] += 1
+    for label in y:
+        for label2 in classes:
+            if label2 == label:
+                label_frequencies[label2] += 1
     entrophy = 0.0
     for label, value in label_frequencies.items():
         if value != 0:
@@ -93,21 +95,24 @@ def calculate_best_info_gain(x, y, classes):
     print(max_info_gained, best_attribute_index, best_attribute_value)
     return (best_attribute_index, best_attribute_value)
 
+
 def find_best_node(x, y, classes):
     best_attribute_index, best_attribute_value = calculate_best_info_gain(x, y, classes)
 
-    best_node = Node(best_attribute_index, best_attribute_value,x,y,classes)
+    best_node = Node(best_attribute_index, best_attribute_value, x, y, classes)
 
     return best_node
 
+
 # helper function for induce_decision_tree
-def same_labels (y):
-    #TODO: think about optimizing using an ndarry method instead.
+def same_labels(y):
+    # TODO: think about optimizing using an ndarry method instead.
     test = y[0]
     for i in y:
-        if (test != i):
+        if test != i:
             return False
     return True
+
 
 # helper function for induce_decision_tree
 def split_dataset(x, y, classes, best_node):
@@ -121,14 +126,21 @@ def split_dataset(x, y, classes, best_node):
     right_child_x = x[right_filter]
     right_child_y = y[right_filter]
     right_child_classes = np.unique(right_child_y)
-    return left_child_x, left_child_y, left_child_classes, right_child_x, right_child_y, right_child_classes
+    return (
+        left_child_x,
+        left_child_y,
+        left_child_classes,
+        right_child_x,
+        right_child_y,
+        right_child_classes,
+    )
+
 
 def no_more_splits(x):
     if len(x) < 2:
         return True
     else:
-        return False 
-
+        return False
 
 
 # Main Function, follows pseudocode given in spec.
@@ -137,14 +149,16 @@ def induce_decision_tree(x, y, classes):
 
     Input:
     """
-    # BASE CASES: all instances in 
+    # BASE CASES: all instances in
     if len(x) < 2 or same_labels(y):
-        leaf_node = Node(None, None, x,y,classes)
-        
+        leaf_node = Node(None, None, x, y, classes)
+
         return leaf_node
     else:
         best_node = find_best_node(x, y, classes)
-        left_x, left_y, left_classes, right_x, right_y, right_classes = split_dataset(x, y, classes, best_node)
+        left_x, left_y, left_classes, right_x, right_y, right_classes = split_dataset(
+            x, y, classes, best_node
+        )
         child_node_left = induce_decision_tree(left_x, left_y, left_classes)
         best_node.add_child(child_node_left)
         child_node_right = induce_decision_tree(right_x, right_y, right_classes)
