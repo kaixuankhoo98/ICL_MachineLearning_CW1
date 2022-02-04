@@ -58,7 +58,7 @@ def calculate_best_info_gain(x, y, classes):
             attribute_min_value, attribute_max_value + 1
         ):  # +1 to include max
             # CALCULATE ENTROPHY FOR LEFT
-            left_filter = x[:, attribute_index] >= attribute_value
+            left_filter = x[:, attribute_index] >``= attribute_value
             left_filtered_x = x[left_filter, :]
             left_filtered_y = y[left_filter]
             left_entrophy = calculate_entrophy(
@@ -93,11 +93,20 @@ def calculate_best_info_gain(x, y, classes):
     return (best_attribute_index, best_attribute_value)
 
 
+def same_labels (y):
+    #TODO: think about using a ndarry method instead.
+    test = y[0]
+    for i in y:
+        if (test != i):
+            return false
+    return true
+
+
 # Main Function, follows pseudocode given in spec.
 def induce_decision_tree():
     """
-    This function computes the information gain for different subsets of
-    the dataset passed in for different attribute and split points.
+
     Input:
     """
+    if same_labels()
     pass
