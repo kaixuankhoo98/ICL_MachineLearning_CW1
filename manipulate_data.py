@@ -8,7 +8,7 @@ import read_data as rd
 # import pandas as pd
 # import matplotlib.pyplot as plt
 
-file_name = "data/toy.txt"
+file_name = "data/train_full.txt"
 
 (x, y, classes) = rd.read_dataset(file_name)
 # arg was "intro2ml_cw1_13/data/train_full.txt" just now.
@@ -25,7 +25,7 @@ new_x_onlyC = rd.only_certain_y(x, y, 1)
 print(new_x_onlyA)
 print(new_x_onlyC)
 
-rd.get_probability_distribution(x, y, 0, 0)
+rd.get_probability_distribution(x, y, classes, 4, 1)
 
 print("\n")
 print(len(y))

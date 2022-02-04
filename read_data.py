@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy as sp
+from torch import le
 
 def read_dataset(filepath):
     x = []
@@ -59,10 +60,19 @@ def only_certain_y(x, y, index):
     x_return = x[y==index]
     return x_return
 
-def get_probability_distribution(x,y,letter,attribute):
+def get_probability_distribution(x,y,classes,letter,attribute):
     data = only_certain_y(x,y,attribute)[:,letter]
+    plt.figure()
+    plt.hist(data)
+    plt.xlabel(f"Letter {classes[letter]}")
+    plt.ylabel(f"Frequency distribution of attribute {attribute}")
+    plt.show()
+
+def get_probability_distribution_all_letters(x,y,attribute):
+    data = only_certain_y(x,y,attribute)
     print(data)
     plt.figure()
     plt.hist(data)
+    plt.xlabel(f"Letter {letter}")
+    plt.ylabel(f"Frequency of attribute {attribute}")
     plt.show()
-
