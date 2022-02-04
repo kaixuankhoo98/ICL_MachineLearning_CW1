@@ -21,7 +21,6 @@ def calculate_entrophy(x, y, classes):
     label_frequencies = dict.fromkeys(classes, 0) 
     for label in classes[y]:
         label_frequencies[label] += 1
-    print(label_frequencies)
     entrophy = 0.0
     for label, value in label_frequencies.items():
         if value != 0:
@@ -59,7 +58,7 @@ def calculate_best_info_gain(x, y, classes):
             attribute_min_value, attribute_max_value + 1
         ):  # +1 to include max
             # CALCULATE ENTROPHY FOR LEFT
-            left_filter = x[:, attribute_index] >= attribute_value
+            left_filter = x[:, attribute_index] <= attribute_value
             left_filtered_x = x[left_filter, :]
             left_filtered_y = y[left_filter]
             left_entrophy = calculate_entrophy(
@@ -100,6 +99,7 @@ def find_best_node(x, y, classes):
 
     return best_node
 
+# helper function for induce_decision_tree
 def same_labels (y):
     #TODO: think about optimizing using an ndarry method instead.
     test = y[0]
@@ -108,8 +108,9 @@ def same_labels (y):
             return False
     return True
 
-def split_dataset(x, y, ):
-
+# helper function for induce_decision_tree
+def split_dataset(x, y, classes, best_node):
+    
     pass
 
 # Main Function, follows pseudocode given in spec.
@@ -118,9 +119,11 @@ def induce_decision_tree(x, y, classes):
 
     Input:
     """
+    # BASE CASES: all instances in 
     if same_labels(y):
         return
     else:
         best_node = find_best_node(x, y, classes)
+        # child_data_left, child_data_right = split_dataset(x, y, classes, best_node)
         
     pass
