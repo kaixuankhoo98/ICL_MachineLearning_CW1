@@ -2,7 +2,7 @@
 #     print(line.strip())
 
 from re import M
-from attr import attr
+from attr import attr, attrib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -61,18 +61,23 @@ def only_certain_y(x, y, index):
     return x_return
 
 def get_probability_distribution(x,y,classes,letter,attribute):
-    data = only_certain_y(x,y,attribute)[:,letter]
+    data = only_certain_y(x,y,letter)[:,attribute]
     plt.figure()
     plt.hist(data)
-    plt.xlabel(f"Letter {classes[letter]}")
+    plt.xlabel(f"Letter {classes[letter]}, attribute {attribute} value")
     plt.ylabel(f"Frequency distribution of attribute {attribute}")
     plt.show()
 
-def get_probability_distribution_all_letters(x,y,attribute):
-    data = only_certain_y(x,y,attribute)
-    print(data)
+def get_probability_distribution_all_letters(x,y,classes,attribute):
+    data = []
+    for i in range(classes.size):
+        data.append(only_certain_y(x,y,i)[:,attribute])
+    
     plt.figure()
-    plt.hist(data)
-    plt.xlabel(f"Letter {letter}")
+    for i in range(classes.size):
+        plt.hist(data[i], alpha=0.5, label=classes[i])
+    # plt.hist(data)
+    plt.xlabel(f"Attribute {attribute} value")
     plt.ylabel(f"Frequency of attribute {attribute}")
+    plt.legend(loc='upper right')
     plt.show()

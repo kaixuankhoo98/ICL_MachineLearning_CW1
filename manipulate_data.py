@@ -25,7 +25,15 @@ new_x_onlyC = rd.only_certain_y(x, y, 1)
 print(new_x_onlyA)
 print(new_x_onlyC)
 
-rd.get_probability_distribution(x, y, classes, 4, 1)
+# rd.get_probability_distribution(x, y, classes, 0, 15)
+rd.get_probability_distribution_all_letters(x, y, classes, 0)
+
+""" NOTES from observing the plots
+Attribute 6 has a distinct separation for A
+Attribute 7 then check attribute 6 seems reasonable
+Attribute 8 has decent separation
+Attribute 10 has the best separation for A
+"""
 
 print("\n")
 print(len(y))
