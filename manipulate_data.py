@@ -26,7 +26,7 @@ print(new_x_onlyA)
 print(new_x_onlyC)
 
 # rd.get_probability_distribution(x, y, classes, 0, 15)
-rd.get_probability_distribution_all_letters(x, y, classes, 0)
+rd.get_probability_distribution_all_letters(x, y, classes, 10)
 
 """ NOTES from observing the plots
 Attribute 6 has a distinct separation for A
