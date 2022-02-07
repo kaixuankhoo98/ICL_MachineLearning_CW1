@@ -5,28 +5,6 @@ import max_info_gain
 from classification import DecisionTreeClassifier
 
 
-def accuracy(y_gold, y_prediction):
-    """ Compute the accuracy given the ground truth and predictions
-
-    Args:
-        y_gold (np.ndarray): the correct ground truth/gold standard labels
-        y_prediction (np.ndarray): the predicted labels
-
-    Returns:
-        float : the accuracy
-    """
-
-    assert len(y_gold) == len(y_prediction)  
-    
-    try:
-        return np.sum(y_gold == y_prediction) / len(y_gold)
-    except ZeroDivisionError:
-        return 0.
-
-# Compute accuracy on predictions for RandomClassifier and KNNClassifier from earlier
-
-
-
 # from max_info_gain import induce_decision_tree
 
 # Don't need these in this file I think.
