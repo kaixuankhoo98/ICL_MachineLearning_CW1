@@ -4,6 +4,29 @@ import numpy as np
 import max_info_gain
 from classification import DecisionTreeClassifier
 
+
+def accuracy(y_gold, y_prediction):
+    """ Compute the accuracy given the ground truth and predictions
+
+    Args:
+        y_gold (np.ndarray): the correct ground truth/gold standard labels
+        y_prediction (np.ndarray): the predicted labels
+
+    Returns:
+        float : the accuracy
+    """
+
+    assert len(y_gold) == len(y_prediction)  
+    
+    try:
+        return np.sum(y_gold == y_prediction) / len(y_gold)
+    except ZeroDivisionError:
+        return 0.
+
+# Compute accuracy on predictions for RandomClassifier and KNNClassifier from earlier
+
+
+
 # from max_info_gain import induce_decision_tree
 
 # Don't need these in this file I think.
@@ -11,7 +34,8 @@ from classification import DecisionTreeClassifier
 # import pandas as pd
 # import matplotlib.pyplot as plt
 
-file_name = "data/toy.txt"
+file_name = "data/train_sub.txt"
+
 
 (x, y, classes) = rd.read_dataset(file_name)
 # arg was "intro2ml_cw1_13/data/train_full.txt" just now.
@@ -35,8 +59,14 @@ classifier.fit(x, y_letters)
 print("Trying predict method")
 x_test = np.array([[5,7,1],[4,6,2],[4,6,3],[1,6,3],[0,5,5],[1,3,1],[2,1,2],[5,2,6],[1,5,0],[2,4,2]])
 x_scrambled_test = np.array([[5,7,1],[1,3,1],[4,6,2],[2,1,2],[4,6,3],[5,2,6],[1,6,3],[1,5,0],[0,5,5],[2,4,2]])
-print(classifier.predict(x_test))
-print(classifier.predict(x_scrambled_test))
+ypred=classifier.predict(x)
+
+print(accuracy(y,ypred))
+
+
+
+
+
 # new_list_x, new_list_y = rd.sort_list_by_attribute(x, y, 0)
 # # print(new_list_x, new_list_y)
 

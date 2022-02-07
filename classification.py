@@ -93,9 +93,7 @@ class DecisionTreeClassifier(object):
             temp_node = self.DecisionTree
             count = 0
             for value in test_instance:
-                print(temp_node.y[0])
                 if count == temp_node.attribute_index:
-                    print("here")
                     if temp_node.last_node == False:
                         if value <= temp_node.attribute_value:
                             temp_node = temp_node.left_child
@@ -104,6 +102,7 @@ class DecisionTreeClassifier(object):
                 count += 1
             predictions2.append(temp_node.y[0])
             
+        predictions2=np.array(predictions2)
 
         # for test_instance in x:
         #     for attribute_value in test_instance:
