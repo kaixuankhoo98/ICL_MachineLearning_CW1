@@ -5,9 +5,9 @@ import numpy as np
 from node import Node
 
 
-def calculate_entrophy(x, y, classes):
+def calculate_entropy(x, y, classes):
     """
-    This function calculates the entrophy for a given dataset.
+    This function calculates the entropy for a given dataset.
     It's equivalent to formula (2) in the CW spec pg 6.
     Args:
         x: a 2D numpy matrice consisting of all the instances in the dataset
@@ -15,7 +15,7 @@ def calculate_entrophy(x, y, classes):
         y: a 1D numpy array consisting of the class labels of all instances
         classes: a 1D numpy array consisting of the
     Returns:
-        float: the entrophy for the given dataset.
+        float: the entropy for the given dataset.
     """
 
     number_of_instances = len(y)
@@ -24,22 +24,22 @@ def calculate_entrophy(x, y, classes):
         for label2 in classes:
             if label2 == label:
                 label_frequencies[label2] += 1
-    entrophy = 0.0
+    entropy = 0.0
     for label, value in label_frequencies.items():
         if value != 0:
             probability = value / number_of_instances
             if probability > 0 and probability < 1:
-                entrophy -= probability * math.log(probability, 2)
+                entropy -= probability * math.log(probability, 2)
 
     # TODO: add sanity check
 
-    return entrophy
+    return entropy
 
 
 def calculate_best_info_gain(x, y, classes):
     """
     Args:
-    - As with the `calculate_entrophy` function, but x, y and classes
+    - As with the `calculate_entropy` function, but x, y and classes
         for a parent dataset
     Returns a tuple with:
     - Index of attribute with highest information gain,
@@ -47,7 +47,7 @@ def calculate_best_info_gain(x, y, classes):
     Assume:
     - We treat the attribute values as integers.
     """
-    dataset_entrophy = calculate_entrophy(x, y, classes)
+    dataset_entropy = calculate_entropy(x, y, classes)
     number_of_attributes = len(x[0, :])
     number_of_instances = len(y)
     container = []  # to store info on each split done below.
@@ -60,25 +60,25 @@ def calculate_best_info_gain(x, y, classes):
         for attribute_value in range(
             attribute_min_value, attribute_max_value + 1
         ):  # +1 to include max
-            # CALCULATE ENTROPHY FOR LEFT
+            # CALCULATE entropy FOR LEFT
             left_filter = x[:, attribute_index] <= attribute_value
             left_filtered_x = x[left_filter, :]
             left_filtered_y = y[left_filter]
-            left_entrophy = calculate_entrophy(
+            left_entropy = calculate_entropy(
                 left_filtered_x, left_filtered_y, classes
             )
-            # CALCULATE ENTROPHY FOR RIGHT
+            # CALCULATE entropy FOR RIGHT
             right_filter = np.invert(left_filter)
             right_filtered_x = x[right_filter, :]
             right_filtered_y = y[right_filter]
-            right_entrophy = calculate_entrophy(
+            right_entropy = calculate_entropy(
                 right_filtered_x, right_filtered_y, classes
             )
             # CALUCLATE INFORMATION GAIN FOR splitting ALONG THIS ATTRIBUTE
             # AND THIS PARTICULAR VALUE
             proportion = len(left_filtered_y) / number_of_instances
-            info_gained = dataset_entrophy - (
-                proportion * left_entrophy + (1 - proportion) * right_entrophy
+            info_gained = dataset_entropy - (
+                proportion * left_entropy + (1 - proportion) * right_entropy
             )
             # Save info into container
             container.append([info_gained, attribute_index, attribute_value])

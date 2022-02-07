@@ -8,7 +8,7 @@
 ##############################################################################
 
 import numpy as np
-
+import max_info_gain as mig
 
 class DecisionTreeClassifier(object):
     """ Basic decision tree classifier
@@ -44,9 +44,15 @@ class DecisionTreeClassifier(object):
         #######################################################################
         #                 ** TASK 2.1: COMPLETE THIS METHOD **
         #######################################################################    
-        
 
-        
+        # convert y into y_index and classes to pass into max info gain functions
+        [classes, y_index] = np.unique(y, return_inverse=True)
+
+        print("Trying info_gain function...")
+        mig.calculate_best_info_gain(x, y_index, classes)
+        print("Now, trying induce decision tree...")
+        mig.induce_decision_tree(x, y_index, classes)
+
         # set a flag so that we know that the classifier has been trained
         self.is_trained = True
         
