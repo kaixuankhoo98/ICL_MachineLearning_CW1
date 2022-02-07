@@ -26,7 +26,7 @@ class DecisionTreeClassifier(object):
 
     def __init__(self):
         self.is_trained = False
-        DecisionTree = Node()
+        DecisionTree = Node(attribute_index=None, attribute_value=None, x=None, y=None, classes=None)
 
     def fit(self, x, y):
         """Constructs a decision tree classifier from data
@@ -84,21 +84,26 @@ class DecisionTreeClassifier(object):
         # feel free to change this if needed
         predictions = np.zeros((x.shape[0],), dtype=np.object)
 
+        predictions2 = []
+
         #######################################################################
         #                 ** TASK 2.2: COMPLETE THIS METHOD **
         #######################################################################
-        for test_instance, attribute_index in np.ndindex(x.shape):
+        for test_instance in x:
             temp_node = self.DecisionTree
-            while temp_node.last_node == False:
-                print(temp_node.attribute_index)
-                print(temp_node.last_node)
-                if attribute_index == temp_node.attribute_index:
-                    if x[test_instance][attribute_index] <= temp_node.attribute_value:
-                        temp_node = temp_node.left_child
-                    else:
-                        temp_node = temp_node.right_child
-                    print(temp_node.attribute_index)
-                    print(temp_node.attribute_value)
+            count = 0
+            for value in test_instance:
+                print(temp_node.y[0])
+                if count == temp_node.attribute_index:
+                    print("here")
+                    if temp_node.last_node == False:
+                        if value <= temp_node.attribute_value:
+                            temp_node = temp_node.left_child
+                        else:
+                            temp_node = temp_node.right_child
+                count += 1
+            predictions2.append(temp_node.y[0])
+            
 
         # for test_instance in x:
         #     for attribute_value in test_instance:
@@ -117,4 +122,4 @@ class DecisionTreeClassifier(object):
         #                     temp_node = temp_node.right_child
         #         predictions.append(temp_node.y)
         # remember to change this if you rename the variable
-        return predictions
+        return predictions2

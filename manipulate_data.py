@@ -1,6 +1,8 @@
 from calendar import c
 import read_data as rd
+import numpy as np
 import max_info_gain
+from classification import DecisionTreeClassifier
 
 # from max_info_gain import induce_decision_tree
 
@@ -18,11 +20,23 @@ file_name = "data/toy.txt"
 print("For toy.txt")  # this was for "train_sub.txt". prob just a typo?
 rd.display_data_information(x, y, classes)
 
-print("Trying info_gain function")
-max_info_gain.calculate_best_info_gain(x, y, classes)
-print("Now, trying induce decision tree")
-max_info_gain.induce_decision_tree(x, y, classes)
+# print("Trying info_gain function")
+# max_info_gain.calculate_best_info_gain(x, y, classes)
+# print("Now, trying induce decision tree")
+# max_info_gain.induce_decision_tree(x, y, classes)
 
+y_letters = []
+for i in y:
+    y_letters.append(classes[i])
+y_letters = np.array(y_letters)
+print("Trying fit method")
+classifier = DecisionTreeClassifier()
+classifier.fit(x, y_letters)
+print("Trying predict method")
+x_test = np.array([[5,7,1],[4,6,2],[4,6,3],[1,6,3],[0,5,5],[1,3,1],[2,1,2],[5,2,6],[1,5,0],[2,4,2]])
+x_scrambled_test = np.array([[5,7,1],[1,3,1],[4,6,2],[2,1,2],[4,6,3],[5,2,6],[1,6,3],[1,5,0],[0,5,5],[2,4,2]])
+print(classifier.predict(x_test))
+print(classifier.predict(x_scrambled_test))
 # new_list_x, new_list_y = rd.sort_list_by_attribute(x, y, 0)
 # # print(new_list_x, new_list_y)
 

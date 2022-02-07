@@ -152,7 +152,7 @@ def induce_decision_tree(x, y, classes):
     # BASE CASES: all instances in
     if len(x) < 2 or same_labels(y):
         leaf_node = Node(None, None, x, y, classes)
-
+        leaf_node.last_node = True
         return leaf_node
     else:
         best_node = find_best_node(x, y, classes)
