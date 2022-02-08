@@ -3,6 +3,9 @@ import read_data as rd
 import numpy as np
 import max_info_gain
 from classification import DecisionTreeClassifier
+from evaluation import confusion_matrix, precision
+from evaluation import accuracy
+from evaluation import recall, precision, f1_score
 
 
 # from max_info_gain import induce_decision_tree
@@ -39,7 +42,12 @@ x_test = np.array([[5,7,1],[4,6,2],[4,6,3],[1,6,3],[0,5,5],[1,3,1],[2,1,2],[5,2,
 x_scrambled_test = np.array([[5,7,1],[1,3,1],[4,6,2],[2,1,2],[4,6,3],[5,2,6],[1,6,3],[1,5,0],[0,5,5],[2,4,2]])
 ypred=classifier.predict(x)
 
+
 print(accuracy(y,ypred))
+print(confusion_matrix(y,ypred))
+print(recall(y, ypred))
+print(precision(y, ypred))
+print(f1_score(y, ypred))
 
 
 
