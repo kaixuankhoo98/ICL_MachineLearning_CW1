@@ -64,9 +64,7 @@ def calculate_best_info_gain(x, y, classes):
             left_filter = x[:, attribute_index] <= attribute_value
             left_filtered_x = x[left_filter, :]
             left_filtered_y = y[left_filter]
-            left_entropy = calculate_entropy(
-                left_filtered_x, left_filtered_y, classes
-            )
+            left_entropy = calculate_entropy(left_filtered_x, left_filtered_y, classes)
             # CALCULATE entropy FOR RIGHT
             right_filter = np.invert(left_filter)
             right_filtered_x = x[right_filter, :]
@@ -164,3 +162,16 @@ def induce_decision_tree(x, y, classes):
         child_node_right = induce_decision_tree(right_x, right_y, right_classes)
         best_node.add_child(child_node_right)
         return best_node
+
+
+def find_majority_label(y):
+    """
+    Input:
+    y is a numpy array of size (K, ) containing the class label for each instance in a dataset.
+
+    Returns:
+    the majority class label in y
+    """
+    vals, counts = np.unique(y, return_counts=True)
+    index = np.argmax(counts)
+    return vals[index]
