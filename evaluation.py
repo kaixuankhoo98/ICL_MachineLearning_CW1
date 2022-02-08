@@ -2,6 +2,8 @@ from calendar import c
 import read_data as rd
 import numpy as np
 import classification as model
+import cross_validation as cv
+from numpy.random import default_rng
 
 
 def accuracy(y_gold, y_prediction):
@@ -227,4 +229,38 @@ def evaluate ( train_filepath, test_filepath ):
     print(precision(y_test,y_pred))
     print('\n', 'F1 Score: ')
     print(f1_score(y_test,y_pred))
+
+    return
+
+def cross_validation( train_filepath, n_folds ):
+
+    # Training Data
+    (x, y, classes) = rd.read_dataset( train_filepath )
+    y_letters = []
+    for i in y:
+        y_letters.append(classes[i])
+    y_letters = np.array(y_letters)
+
+    seed = 60012
+    rg = default_rng(seed)
+
+    accuracies = np.zeros((n_folds, ))
+    for i, (train_indices, test_indices) in enumerate(cv.train_test_k_fold(n_folds, len(x), rg)):
+        # get the dataset from the correct splits
+        x_train = x[train_indices, :]
+        y_train = y[train_indices]
+        x_test = x[test_indices, :]
+        y_test = y[test_indices]
+
+        # Train the Decision Tree
+        classifier = model.DecisionTreeClassifier()
+        classifier.fit(x_train, y_train)
+        predictions = classifier.predict(x_test)
+        acc = accuracy(y_test, predictions)
+        accuracies[i] = acc
+
+    print("Accuracy array: ", accuracies, '\n')
+    print("Accuracy mean: ", accuracies.mean(), '\n')
+    print("Standard Deviation: ", accuracies.std(), '\n')
+    return
 

@@ -6,7 +6,8 @@ from classification import DecisionTreeClassifier
 from evaluation import confusion_matrix, precision
 from evaluation import accuracy
 from evaluation import recall, precision, f1_score
-import evaluation
+import evaluation as ev
+import cross_validation as cv
 
 
 # from max_info_gain import induce_decision_tree
@@ -44,11 +45,11 @@ import evaluation
 # ypred=classifier.predict(x)
 
 
-evaluation.evaluate( "data/train_full.txt", "data/test.txt" )
-print('\n', '\n')
-evaluation.evaluate( "data/train_sub.txt", "data/test.txt" )
-print('\n', '\n')
-evaluation.evaluate( "data/train_noisy.txt", "data/test.txt" )
+# evaluation.evaluate( "data/train_full.txt", "data/test.txt" )
+# print('\n', '\n')
+# evaluation.evaluate( "data/train_sub.txt", "data/test.txt" )
+# print('\n', '\n')
+# evaluation.evaluate( "data/train_noisy.txt", "data/test.txt" )
 
 
 
@@ -74,3 +75,5 @@ evaluation.evaluate( "data/train_noisy.txt", "data/test.txt" )
 # # plt.xlabel(class_names[1])
 # # plt.ylabel(class_names[2])
 # plt.show()
+
+ev.cross_validation("data/train_full.txt", 10)
