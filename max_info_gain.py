@@ -92,7 +92,7 @@ def calculate_best_info_gain(x, y, classes):
             max_info_gained = a_list[0]
             best_attribute_index = a_list[1]
             best_attribute_value = a_list[2]
-    print(max_info_gained, best_attribute_index, best_attribute_value)
+    # print(max_info_gained, best_attribute_index, best_attribute_value)
     return (best_attribute_index, best_attribute_value)
 
 

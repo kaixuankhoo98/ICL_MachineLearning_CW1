@@ -1,8 +1,7 @@
 from calendar import c
 import read_data as rd
 import numpy as np
-
-
+import classification as model
 
 
 def accuracy(y_gold, y_prediction):
@@ -195,3 +194,37 @@ def f1_score(y_gold, y_prediction):
         macro_f = np.mean(f)
     
     return (f, macro_f)
+
+def evaluate ( train_filepath, test_filepath ):
+
+    # Training Data
+    (x_train, y_train, classes_train) = rd.read_dataset( train_filepath )
+    y_train_letters = []
+    for i in y_train:
+        y_train_letters.append(classes_train[i])
+    y_train_letters = np.array(y_train_letters)
+
+    # Test Data
+    (x_test, y_test, classes_test) = rd.read_dataset(test_filepath)
+
+    # Fit Decision Tree
+    classifier = model.DecisionTreeClassifier()
+    classifier.fit(x_train, y_train_letters)
+
+    # Predicting
+    y_pred=classifier.predict(x_test)
+
+    # Print metrics
+    print("Trained on: ", train_filepath)
+    print("Tested on: ", test_filepath, '\n')
+    print("Accuracy:")
+    print(accuracy(y_test,y_pred))
+    print('\n', "Confusion matrix:")
+    print(confusion_matrix(y_test,y_pred))
+    print('\n', "Recall:")
+    print(recall(y_test,y_pred))
+    print('\n', "Precision:")
+    print(precision(y_test,y_pred))
+    print('\n', 'F1 Score: ')
+    print(f1_score(y_test,y_pred))
+
