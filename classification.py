@@ -51,13 +51,13 @@ class DecisionTreeClassifier(object):
         # convert y into y_index and classes to pass into max info gain functions
         [classes, y_index] = np.unique(y, return_inverse=True)
 
-        print("Trying info_gain function...")
+        # print("Trying info_gain function...")
         mig.calculate_best_info_gain(x, y_index, classes)
-        print("Now, trying induce decision tree...")
+        # print("Now, trying induce decision tree...")
         self.DecisionTree = mig.induce_decision_tree(x, y_index, classes)
-        print("First node values are:")
-        print(self.DecisionTree.attribute_index)
-        print(self.DecisionTree.attribute_value)
+        # print("First node values are:")
+        # print(self.DecisionTree.attribute_index)
+        # print(self.DecisionTree.attribute_value)
         # set a flag so that we know that the classifier has been trained
         self.is_trained = True
 
