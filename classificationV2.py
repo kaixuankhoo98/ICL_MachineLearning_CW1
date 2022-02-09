@@ -59,6 +59,8 @@ class PostPrunedDecisionTreeClassifier(object):
             raise Exception("Tree has not been constructed.")
         node_iterator = self.DecisionTree
         # iterate through the tree.
+        temp_node = self.DecisionTree
+        
 
     def predict(self, x):
         """Predicts a set of samples using the trained DecisionTreeClassifier.
