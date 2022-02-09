@@ -14,12 +14,15 @@ class PostPrunedDecisionTreeClassifier(object):
     predict(x): Predicts the class label of samples X
     prune(x_val, y_val): Post-prunes the decision tree
     """
+    DecisionTree = Node(
+            attribute_index=None, attribute_value=None, x=None, y=None, classes=None
+        )
 
     def __init__(self):
         self.is_trained = False
-        DecisionTree = Node(
-            attribute_index=None, attribute_value=None, x=None, y=None, classes=None
-        )
+        # DecisionTree = Node(
+        #     attribute_index=None, attribute_value=None, x=None, y=None, classes=None
+        # ) # moved it outside so it's an attribute
 
     def fit(self, x, y):
         """Constructs a decision tree classifier from data

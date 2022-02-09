@@ -14,6 +14,8 @@ for i in y:
 y_letters = np.array(y_letters)
 
 tree =  PostPrunedDecisionTreeClassifier()
+
 tree.fit(x, y_letters)
 x_test = np.array([[1,6,0],[0,5,5],[2,1,2]])
 print(classes[tree.predict(x_test)])
+print(tree.DecisionTree.right_child.depth)

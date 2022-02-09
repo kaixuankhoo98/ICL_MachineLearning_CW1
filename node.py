@@ -1,6 +1,5 @@
 class Node(object):
-
-
+    depth = 0
     left_child = None
     left_child_label = None
     right_child = None 
@@ -17,6 +16,8 @@ class Node(object):
     def add_child(self, node):
         if ( self.left_child == None ):
             self.left_child = node
+            self.left_child.depth = self.depth + 1
         else:
             self.right_child = node
+            self.right_child.depth = self.depth + 1
     

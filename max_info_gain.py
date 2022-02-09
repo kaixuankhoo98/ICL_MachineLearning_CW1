@@ -175,3 +175,6 @@ def find_majority_label(y):
     vals, counts = np.unique(y, return_counts=True)
     index = np.argmax(counts)
     return vals[index]
+
+def visualize_tree(tree):
+    print(tree)
