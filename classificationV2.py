@@ -8,6 +8,7 @@
 ##############################################################################
 
 import numpy as np
+from evaluation import accuracy
 import max_info_gain as mig
 from node import Node
 
@@ -91,17 +92,27 @@ class ImprovedDecisionTreeClassifier(object):
         if decision_node.children_are_leaves():
             # if so, compute the accuracy of the classifier if you prune this node.
             node_pre_pruned = decision_node
-            pruned_node = decision_node.make_node_leaf_node()
-            # node's 'y' should consist of just the majority label.
-            # TODO: not sure how to implement this.
+            # TODO: implement the 'make_node_leaf_node' function in the node.py script
+            decision_node.make_node_leaf_node()
+            # TODO: check if the following are true about the previous line.
+            #   the decision tree classifier is itself modified by this.
+            #   node's 'y' should consist of just the majority label.
+            pruned_predictions = self.predict(x_val)
+            pruned_accuracy = accuracy(y_val, pruned_predictions)
 
+            # compare prior accuracy and accuracy of tree with prune
+            if pruned_accuracy > prior_accuracy:
+                prior_accuracy = pruned_accuracy
+            else:
+                # if the accuracy isn't any better, then don't prune the tree.
+                decision_node = node_pre_pruned
         else:
             # TODO: unsure if this works.
             # if not, then try prune the decision node's children
-            self.test_pruning_tree(
+            prior_accuracy = self.test_pruning_tree(
                 decision_node.left_child, x_val, y_val, prior_accuracy
             )
-            self.test_pruning_tree(
+            prior_accuracy = self.test_pruning_tree(
                 decision_node.right_child, x_val, y_val, prior_accuracy
             )
 
