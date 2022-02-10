@@ -25,9 +25,12 @@ class Node(object):
     def print_tree(self):
         if self.left_child:
             self.left_child.print_tree()
-        print("node: ")
+        print("Node: ")
+        print(self.x)
+        print(self.y)
         print( self.attribute_index)
         print( self.attribute_value)
+        print("\n")
         if self.right_child:
             self.right_child.print_tree()
     
