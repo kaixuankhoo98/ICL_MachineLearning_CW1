@@ -1,9 +1,7 @@
 class Node(object):
     depth = 0
     left_child = None
-    left_child_label = None
     right_child = None 
-    right_child_label = None
     last_node = False
 
     def __init__(self, attribute_index, attribute_value, x, y, classes):

@@ -28,6 +28,21 @@ class DecisionTreeClassifier(object):
         self.is_trained = False
         DecisionTree = Node(attribute_index=None, attribute_value=None, x=None, y=None, classes=None)
 
+    def traverse_and_print_tree(self):
+        node_pointer = self.DecisionTree
+        print(node_pointer.last_node)
+        if(node_pointer.last_node == False):
+            print(node_pointer.x)
+            print(node_pointer.y)
+            print(node_pointer.attribute_index)
+            print(node_pointer.attribute_value)
+        node_pointer = node_pointer.left_child
+        if(node_pointer.last_node == False):
+            print(node_pointer.x)
+            print(node_pointer.y)
+            print(node_pointer.attribute_index)
+            print(node_pointer.attribute_value)
+
     def fit(self, x, y):
         """Constructs a decision tree classifier from data
 
@@ -102,7 +117,7 @@ class DecisionTreeClassifier(object):
                 count += 1
             predictions2.append(temp_node.y[0])
             
-        predictions2=np.array(predictions2)
+        predictions2 = np.array(predictions2)
 
         # for test_instance in x:
         #     for attribute_value in test_instance:

@@ -9,36 +9,24 @@ from evaluation import recall, precision, f1_score
 import evaluation as ev
 import cross_validation as cv
 
+file_name = "data/train_sub.txt"
 
-# from max_info_gain import induce_decision_tree
+(x, y, classes) = rd.read_dataset(file_name)
 
-# Don't need these in this file I think.
-# import numpy as np
-# import pandas as pd
-# import matplotlib.pyplot as plt
+print("For train_sub.txt") 
+rd.display_data_information(x, y, classes)
 
-# file_name = "data/train_sub.txt"
+# ===== ------- TESTING FIT AND PREDICT METHODS OF CLASSIFIER V1 ---- ======
 
-
-# (x, y, classes) = rd.read_dataset(file_name)
-# arg was "intro2ml_cw1_13/data/train_full.txt" just now.
-# was getting an error-- fileNotFoundError.
-
-# print("For toy.txt")  # this was for "train_sub.txt". prob just a typo?
-# rd.display_data_information(x, y, classes)
-
-# print("Trying info_gain function")
-# max_info_gain.calculate_best_info_gain(x, y, classes)
-# print("Now, trying induce decision tree")
-# max_info_gain.induce_decision_tree(x, y, classes)
-
-# y_letters = []
-# for i in y:
-#     y_letters.append(classes[i])
-# y_letters = np.array(y_letters)
-# print("Trying fit method")
-# classifier = DecisionTreeClassifier()
-# classifier.fit(x, y_letters)
+y_letters = []
+for i in y:
+    y_letters.append(classes[i])
+y_letters = np.array(y_letters)
+print("Trying fit method")
+classifier = DecisionTreeClassifier()
+classifier.fit(x, y_letters)
+print("Trying to print and traverse the tree")
+classifier.traverse_and_print_tree()
 # print("Trying predict method")
 # x_test = np.array([[5,7,1],[4,6,2],[4,6,3],[1,6,3],[0,5,5],[1,3,1],[2,1,2],[5,2,6],[1,5,0],[2,4,2]])
 # x_scrambled_test = np.array([[5,7,1],[1,3,1],[4,6,2],[2,1,2],[4,6,3],[5,2,6],[1,6,3],[1,5,0],[0,5,5],[2,4,2]])
@@ -75,5 +63,6 @@ import cross_validation as cv
 # # plt.xlabel(class_names[1])
 # # plt.ylabel(class_names[2])
 # plt.show()
-
-ev.cross_validation("data/train_full.txt", 10)
+# print("Trying cross validation method")
+# # TODO: resolve infinite loop issue in cross validation method
+# ev.cross_validation("data/train_full.txt", 10)
