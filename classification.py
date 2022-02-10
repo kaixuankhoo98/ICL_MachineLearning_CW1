@@ -95,32 +95,4 @@ class DecisionTreeClassifier(object):
 
         predictions = np.array(predictions)
 
-        # for test_instance in x:
-        #     for attribute_value in test_instance:
-        #         count = 0
-        #         while (
-        #             self.DecisionTree.left_child != None
-        #             or self.DecisionTree.right_child != None
-        #         ):
-        #             count += 1
-        #             print(temp_node.attribute_index)
-        #             if count == temp_node.attribute_index:
-        #                 if attribute_value <= temp_node.attribute_value:
-        #                     ...
-        #                     temp_node = temp_node.left_child
-        #                 else:
-        #                     temp_node = temp_node.right_child
-        #         predictions.append(temp_node.y)
-        # remember to change this if you rename the variable
-
-        # node_pointer = self.DecisionTree
-        #     count = 0
-        #     for value in test_instance:
-        #         if count == node_pointer.attribute_index:
-        #             if node_pointer.last_node == False:
-        #                 if value <= node_pointer.attribute_value:
-        #                     node_pointer = node_pointer.left_child
-        #                 else:
-        #                     node_pointer = node_pointer.right_child
-        #         count += 1
         return predictions

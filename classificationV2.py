@@ -4,7 +4,7 @@ from node import Node
 
 
 class PostPrunedDecisionTreeClassifier(object):
-    """Basic decision tree classifier
+    """Improved Decision Tree Classifier.
 
     Attributes:
     is_trained (bool): Keeps track of whether the classifier has been trained

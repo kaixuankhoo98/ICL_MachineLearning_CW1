@@ -16,7 +16,7 @@ file_name = "data/train_sub.txt"
 print("For train_sub.txt") 
 rd.display_data_information(x, y, classes)
 
-# ===== ------- TESTING FIT AND PREDICT METHODS OF CLASSIFIER V1 ---- ======
+# ===== ------- TRY FIT METHOD OF CLASSIFIER V1 ---- ======
 
 y_letters = []
 for i in y:
@@ -25,11 +25,20 @@ y_letters = np.array(y_letters)
 print("Trying fit method")
 classifier = DecisionTreeClassifier()
 classifier.fit(x, y_letters)
+
+# ===== ------- TRY TRAVERSE AND PRINT TREE ---- ======
+
+print("Trying to traverse and print tree")
+classifier.traverse_and_print_tree()
+
+# ===== ------- TRY TEST METHOD OF CLASSIFIER V1 ---- ======
+
 print("Trying predict method on train_full dataset")
 (x_full, y_full, classes_full) = rd.read_dataset("data/train_full.txt")
 ypred=classifier.predict(x_full)
 print(ypred)
-# ===== ------- TESTING FIT AND PREDICT METHODS OF CLASSIFIER V1 ---- ======
+
+
 
 # x_test = np.array([[5,7,1],[4,6,2],[4,6,3],[1,6,3],[0,5,5],[1,3,1],[2,1,2],[5,2,6],[1,5,0],[2,4,2]])
 # x_scrambled_test = np.array([[5,7,1],[1,3,1],[4,6,2],[2,1,2],[4,6,3],[5,2,6],[1,6,3],[1,5,0],[0,5,5],[2,4,2]])
