@@ -25,12 +25,17 @@ y_letters = np.array(y_letters)
 print("Trying fit method")
 classifier = DecisionTreeClassifier()
 classifier.fit(x, y_letters)
-print("Trying to print and traverse the tree")
-classifier.traverse_and_print_tree()
-# print("Trying predict method")
+print("Trying predict method on train_full dataset")
+(x_full, y_full, classes_full) = rd.read_dataset("data/train_full.txt")
+ypred=classifier.predict(x_full)
+print(ypred)
+# ===== ------- TESTING FIT AND PREDICT METHODS OF CLASSIFIER V1 ---- ======
+
 # x_test = np.array([[5,7,1],[4,6,2],[4,6,3],[1,6,3],[0,5,5],[1,3,1],[2,1,2],[5,2,6],[1,5,0],[2,4,2]])
 # x_scrambled_test = np.array([[5,7,1],[1,3,1],[4,6,2],[2,1,2],[4,6,3],[5,2,6],[1,6,3],[1,5,0],[0,5,5],[2,4,2]])
-# ypred=classifier.predict(x)
+# print("Trying to print and traverse the tree")
+# classifier.traverse_and_print_tree()
+
 
 
 # evaluation.evaluate( "data/train_full.txt", "data/test.txt" )

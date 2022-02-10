@@ -79,27 +79,21 @@ class DecisionTreeClassifier(object):
 
         # set up an empty (M, ) numpy array to store the predicted labels
         # feel free to change this if needed
-        predictions = np.zeros((x.shape[0],), dtype=np.object)
-
-        predictions2 = []
+        predictions = []
 
         #######################################################################
         #                 ** TASK 2.2: COMPLETE THIS METHOD **
         #######################################################################
         for test_instance in x:
-            temp_node = self.DecisionTree
-            count = 0
-            for value in test_instance:
-                if count == temp_node.attribute_index:
-                    if temp_node.last_node == False:
-                        if value <= temp_node.attribute_value:
-                            temp_node = temp_node.left_child
-                        else:
-                            temp_node = temp_node.right_child
-                count += 1
-            predictions2.append(temp_node.y[0])
-            
-        predictions2 = np.array(predictions2)
+            node_pointer = self.DecisionTree
+            while(node_pointer.last_node == False):
+                if(test_instance[node_pointer.attribute_index] <= node_pointer.attribute_value):
+                    node_pointer = node_pointer.left_child
+                else:
+                    node_pointer = node_pointer.right_child
+            predictions.append(mig.find_majority_label(node_pointer.y))
+
+        predictions = np.array(predictions)
 
         # for test_instance in x:
         #     for attribute_value in test_instance:
@@ -118,4 +112,15 @@ class DecisionTreeClassifier(object):
         #                     temp_node = temp_node.right_child
         #         predictions.append(temp_node.y)
         # remember to change this if you rename the variable
-        return predictions2
+
+        # node_pointer = self.DecisionTree
+        #     count = 0
+        #     for value in test_instance:
+        #         if count == node_pointer.attribute_index:
+        #             if node_pointer.last_node == False:
+        #                 if value <= node_pointer.attribute_value:
+        #                     node_pointer = node_pointer.left_child
+        #                 else:
+        #                     node_pointer = node_pointer.right_child
+        #         count += 1
+        return predictions
