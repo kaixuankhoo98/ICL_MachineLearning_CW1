@@ -24,14 +24,19 @@ class Node(object):
     # the section on 'PreOrder Traversal'
     def print_tree(self):
         if self.left_child:
+            print("\t", end="")
             self.left_child.print_tree()
-        print("Node: ")
-        print(self.x)
-        print(self.y)
-        print(self.attribute_index)
-        print(self.attribute_value)
-        print("\n")
+        # print("Node: ")
+        if (self.attribute_index):
+            print(f"Node splitting for attribute {self.attribute_index}, at value {self.attribute_value}")
+        else:
+            print(f"Leaf node for y label")
+        #print(self.y)
+        #print(self.attribute_index)
+        #print(self.attribute_value)
+        # print("\n")
         if self.right_child:
+            print("\t", end="")
             self.right_child.print_tree()
 
     # helper function for prune_tree-- checks if a given node's children are leaf nodes
