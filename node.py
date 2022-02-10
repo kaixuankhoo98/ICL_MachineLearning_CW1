@@ -43,6 +43,12 @@ class Node(object):
 
     # helper function for prune_tree-- makes a node with children nodes that are leaf a leaf node
     # itself using the majority label from the children nodes.
-    def make_node_leaf_node(self):
+    def make_node_leaf_node(self,node):
         # find majority label from children.
-        pass
+        node.x = np.concatenate(node.left_child.x, node.right_child.x)
+        node.y = np.concatenate(node.left_child.y, node.right_child.y)
+        #make into a leaf
+        node.attribute_index = None
+        node.attribute_value = None
+        node.last_node = True
+        return node
