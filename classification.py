@@ -29,19 +29,7 @@ class DecisionTreeClassifier(object):
         DecisionTree = Node(attribute_index=None, attribute_value=None, x=None, y=None, classes=None)
 
     def traverse_and_print_tree(self):
-        node_pointer = self.DecisionTree
-        print(node_pointer.last_node)
-        if(node_pointer.last_node == False):
-            print(node_pointer.x)
-            print(node_pointer.y)
-            print(node_pointer.attribute_index)
-            print(node_pointer.attribute_value)
-        node_pointer = node_pointer.left_child
-        if(node_pointer.last_node == False):
-            print(node_pointer.x)
-            print(node_pointer.y)
-            print(node_pointer.attribute_index)
-            print(node_pointer.attribute_value)
+        self.DecisionTree.print_tree()
 
     def fit(self, x, y):
         """Constructs a decision tree classifier from data
@@ -65,14 +53,8 @@ class DecisionTreeClassifier(object):
 
         # convert y into y_index and classes to pass into max info gain functions
         [classes, y_index] = np.unique(y, return_inverse=True)
-
-        # print("Trying info_gain function...")
         mig.calculate_best_info_gain(x, y_index, classes)
-        # print("Now, trying induce decision tree...")
         self.DecisionTree = mig.induce_decision_tree(x, y_index, classes)
-        # print("First node values are:")
-        # print(self.DecisionTree.attribute_index)
-        # print(self.DecisionTree.attribute_value)
         # set a flag so that we know that the classifier has been trained
         self.is_trained = True
 
