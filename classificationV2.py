@@ -28,7 +28,9 @@ class ImprovedDecisionTreeClassifier(object):
 
     def __init__(self):
         self.is_trained = False
-        DecisionTree = Node(attribute_index=None, attribute_value=None, x=None, y=None, classes=None)
+        DecisionTree = Node(
+            attribute_index=None, attribute_value=None, x=None, y=None, classes=None
+        )
 
     def traverse_and_print_tree(self):
         self.DecisionTree.print_tree()
@@ -62,7 +64,7 @@ class ImprovedDecisionTreeClassifier(object):
 
     def test_pruning_tree(self, decision_node, x_val, y_val, prior_accuracy):
         """
-        Algorithm: 
+        Algorithm:
         . finds a node that has just leaf nodes for children
         . finds the accuracy of the classifier if that node is pruned
         . if that accuracy is greater than the accuracy of the prior pre-pruned classifier,
@@ -71,20 +73,39 @@ class ImprovedDecisionTreeClassifier(object):
 
         Args:
         decision_node: the current node that is considered for pruning.
-        
+
         x_val: a numpy array of shape (L, K) where
             L is the number of validation instances
             K is the number of attributes
-        
+
         y_val: a numpy array of shape (L, ) consisting of the class labels for
                 each instance in the dataset
-        
+
         prior_accuracy: the accuracy of the previous classifier to be compared with the
                 new_accuracy of a tree where the decision_node is pruned
         """
-        pass
-        
-        
+        # check if decision_node has children; if not, then just return the prior accuracy
+        if decision_node.left_child == None and decision_node.right_child == None:
+            return prior_accuracy
+        # check if decision node's children are leaves
+        if decision_node.children_are_leaves():
+            # if so, compute the accuracy of the classifier if you prune this node.
+            node_pre_pruned = decision_node
+            pruned_node = decision_node.make_node_leaf_node()
+            # node's 'y' should consist of just the majority label.
+            # TODO: not sure how to implement this.
+
+        else:
+            # TODO: unsure if this works.
+            # if not, then try prune the decision node's children
+            self.test_pruning_tree(
+                decision_node.left_child, x_val, y_val, prior_accuracy
+            )
+            self.test_pruning_tree(
+                decision_node.right_child, x_val, y_val, prior_accuracy
+            )
+
+        return prior_accuracy
 
     def predict(self, x):
         """Predicts a set of samples using the trained DecisionTreeClassifier.
@@ -114,8 +135,11 @@ class ImprovedDecisionTreeClassifier(object):
         #######################################################################
         for test_instance in x:
             node_pointer = self.DecisionTree
-            while(node_pointer.last_node == False):
-                if(test_instance[node_pointer.attribute_index] <= node_pointer.attribute_value):
+            while node_pointer.last_node == False:
+                if (
+                    test_instance[node_pointer.attribute_index]
+                    <= node_pointer.attribute_value
+                ):
                     node_pointer = node_pointer.left_child
                 else:
                     node_pointer = node_pointer.right_child
