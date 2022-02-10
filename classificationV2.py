@@ -63,7 +63,7 @@ class DecisionTreeClassifier(object):
             raise Exception("Tree has not been constructed.")
         node_iterator = self.DecisionTree
         #TODO: implement iterating through the tree.
-        pass
+        
 
     def predict(self, x):
         """Predicts a set of samples using the trained DecisionTreeClassifier.

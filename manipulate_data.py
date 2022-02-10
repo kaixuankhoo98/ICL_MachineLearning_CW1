@@ -31,7 +31,7 @@ classifier.fit(x, y_letters)
 print("Trying to traverse and print tree")
 classifier.traverse_and_print_tree()
 
-# ===== ------- TRY TEST METHOD OF CLASSIFIER V1 ---- ======
+# ===== ------- TRY PREDICT METHOD OF CLASSIFIER V1 ---- ======
 
 print("Trying predict method on train_full dataset")
 (x_full, y_full, classes_full) = rd.read_dataset("data/train_full.txt")
