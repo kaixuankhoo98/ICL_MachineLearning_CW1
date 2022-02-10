@@ -33,4 +33,24 @@ class Node(object):
         print("\n")
         if self.right_child:
             self.right_child.print_tree()
-    
+
+    # helper function for prune_tree-- checks if a given node's children are leaf nodes
+    def children_are_leaves(self, node_with_children):
+        if(node_with_children.left_child.last_node and node_with_children.right_child.last_node):
+            return True
+        else:
+            return False  
+
+    # helper function for prune_tree-- makes a node with children nodes that are leaf a leaf node
+    # itself using the majority label from the children nodes.
+    def make_node_leaf_node(self, node_with_leaf_children):
+        
+
+    def prune_tree(self):
+        # BASE CASE 1: if self has no children, then return
+
+        if(self.left_child == None and self.right_child == None):
+            return self
+        if(self.children_are_leaves(self)):
+            return self.make_node_leaf_node(self)
+        # if self has children but not leaf children, then call the function again but on the children.

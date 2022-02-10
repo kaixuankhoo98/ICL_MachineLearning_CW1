@@ -3,6 +3,7 @@ import read_data as rd
 import numpy as np
 import max_info_gain
 from classification import DecisionTreeClassifier
+from classificationV2 import ImprovedDecisionTreeClassifier
 from evaluation import confusion_matrix, precision
 from evaluation import accuracy
 from evaluation import recall, precision, f1_score
@@ -22,61 +23,37 @@ y_letters = []
 for i in y:
     y_letters.append(classes[i])
 y_letters = np.array(y_letters)
-print("Trying fit method")
-classifier = DecisionTreeClassifier()
-classifier.fit(x, y_letters)
+# print("Trying fit method")
+# classifier = DecisionTreeClassifier()
+# classifier.fit(x, y_letters)
 
-# ===== ------- TRY TRAVERSE AND PRINT TREE ---- ======
+# # ===== ------- TRY TRAVERSE AND PRINT TREE ---- ======
 
-print("Trying to traverse and print tree")
-classifier.traverse_and_print_tree()
-
-# ===== ------- TRY PREDICT METHOD OF CLASSIFIER V1 ---- ======
-
-print("Trying predict method on train_full dataset")
-(x_full, y_full, classes_full) = rd.read_dataset("data/train_full.txt")
-ypred=classifier.predict(x_full)
-print(ypred)
-
-
-
-# x_test = np.array([[5,7,1],[4,6,2],[4,6,3],[1,6,3],[0,5,5],[1,3,1],[2,1,2],[5,2,6],[1,5,0],[2,4,2]])
-# x_scrambled_test = np.array([[5,7,1],[1,3,1],[4,6,2],[2,1,2],[4,6,3],[5,2,6],[1,6,3],[1,5,0],[0,5,5],[2,4,2]])
-# print("Trying to print and traverse the tree")
+# print("Trying to traverse and print tree")
 # classifier.traverse_and_print_tree()
 
+# # ===== ------- TRY PREDICT METHOD OF CLASSIFIER V1 ---- ======
 
+# print("Trying predict method on train_full dataset")
+# (x_full, y_full, classes_full) = rd.read_dataset("data/train_full.txt")
+# ypred=classifier.predict(x_full)
+# print(ypred)
 
-# evaluation.evaluate( "data/train_full.txt", "data/test.txt" )
-# print('\n', '\n')
-# evaluation.evaluate( "data/train_sub.txt", "data/test.txt" )
-# print('\n', '\n')
-# evaluation.evaluate( "data/train_noisy.txt", "data/test.txt" )
+# # ===== ------- TRY PRUNING THE TREE ---- ======
 
+print("Trying to fit for improved classifier")
+improved_classifier = ImprovedDecisionTreeClassifier()
+improved_classifier.fit(x, y_letters)
+print("Making predictions on the validation dataset.")
+(x_val, y_val, classes_val) = rd.read_dataset("validation.txt")
+improved_predictions = improved_classifier.predict(x_val)
+print("Now, trying to prune the improved classifier")
+improved_accuracy = accuracy(y_val, improved_predictions)
+print("The accuracy of improved classifier prior to pruning is ", improved_accuracy)
+pruned_accuracy = improved_classifier.test_pruning_tree(improved_classifier.DecisionTree, x_val, y_val, improved_accuracy)
+print("The accuracy of the pruned classifier is ", pruned_accuracy)
+# TODO: add check for if the accuracies are the same: if so, then pruning makes no difference. (though unlikely)
 
-
-# new_list_x, new_list_y = rd.sort_list_by_attribute(x, y, 0)
-# # print(new_list_x, new_list_y)
-
-# new_x_onlyA = rd.only_certain_y(x, y, 0)
-# new_x_onlyC = rd.only_certain_y(x, y, 1)
-# print(new_x_onlyA)
-# print(new_x_onlyC)
-
-# rd.get_probability_distribution(x, y, 0, 0)
-
-# print("\n")
-# print(len(y))
-
-# class_names = []
-# for letter in classes:
-#     class_names.append(letter)
-# print(class_names)
-# plt.figure()
-# plt.scatter(x[:,0], x[:,1], c=y, cmap=plt.cm.Set1, edgecolor='k')
-# # plt.xlabel(class_names[1])
-# # plt.ylabel(class_names[2])
-# plt.show()
 # print("Trying cross validation method")
 # # TODO: resolve infinite loop issue in cross validation method
 # ev.cross_validation("data/train_full.txt", 10)

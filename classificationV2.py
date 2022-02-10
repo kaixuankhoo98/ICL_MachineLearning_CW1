@@ -12,11 +12,13 @@ import max_info_gain as mig
 from node import Node
 
 
-class DecisionTreeClassifier(object):
-    """Basic decision tree classifier
+class ImprovedDecisionTreeClassifier(object):
+    """Improved decision tree classifier
 
     Attributes:
     is_trained (bool): Keeps track of whether the classifier has been trained
+    DecisionTree: a binary tree consisting of the various split datasets as well as split points
+                    for our classifier.
 
     Methods:
     fit(x, y): Constructs a decision tree from data X and label y
@@ -58,11 +60,30 @@ class DecisionTreeClassifier(object):
         # set a flag so that we know that the classifier has been trained
         self.is_trained = True
 
-    def prune_tree(self):
-        if not self.is_trained:
-            raise Exception("Tree has not been constructed.")
-        node_iterator = self.DecisionTree
-        #TODO: implement iterating through the tree.
+    def test_pruning_tree(self, decision_node, x_val, y_val, prior_accuracy):
+        """
+        Algorithm: 
+        . finds a node that has just leaf nodes for children
+        . finds the accuracy of the classifier if that node is pruned
+        . if that accuracy is greater than the accuracy of the prior pre-pruned classifier,
+            then the classifier has that node pruned.
+        . if not, the program finds another node that has just leaf nodes for children and repeats.
+
+        Args:
+        decision_node: the current node that is considered for pruning.
+        
+        x_val: a numpy array of shape (L, K) where
+            L is the number of validation instances
+            K is the number of attributes
+        
+        y_val: a numpy array of shape (L, ) consisting of the class labels for
+                each instance in the dataset
+        
+        prior_accuracy: the accuracy of the previous classifier to be compared with the
+                new_accuracy of a tree where the decision_node is pruned
+        """
+        pass
+        
         
 
     def predict(self, x):
