@@ -1,3 +1,5 @@
+import numpy as np
+
 class Node(object):
     depth = 0
     left_child = None
@@ -24,14 +26,19 @@ class Node(object):
     # the section on 'PreOrder Traversal'
     def print_tree(self):
         if self.left_child:
+            print("\t", end="")
             self.left_child.print_tree()
-        print("Node: ")
-        print(self.x)
-        print(self.y)
-        print(self.attribute_index)
-        print(self.attribute_value)
-        print("\n")
+        # print("Node: ")
+        if (self.attribute_index):
+            print(f"Node splitting for attribute {self.attribute_index}, at value {self.attribute_value}")
+        else:
+            print(f"Leaf node for y label")
+        #print(self.y)
+        #print(self.attribute_index)
+        #print(self.attribute_value)
+        # print("\n")
         if self.right_child:
+            print("\t", end="")
             self.right_child.print_tree()
 
     # helper function for prune_tree-- checks if a given node's children are leaf nodes
@@ -43,12 +50,14 @@ class Node(object):
 
     # helper function for prune_tree-- makes a node with children nodes that are leaf a leaf node
     # itself using the majority label from the children nodes.
-    def make_node_leaf_node(self,node):
+    def make_node_leaf_node(self):
         # find majority label from children.
-        node.x = np.concatenate(node.left_child.x, node.right_child.x)
-        node.y = np.concatenate(node.left_child.y, node.right_child.y)
+        self.x = np.concatenate((self.left_child.x, self.right_child.x))
+        self.y = np.concatenate((self.left_child.y, self.right_child.y))
         #make into a leaf
-        node.attribute_index = None
-        node.attribute_value = None
-        node.last_node = True
-        return node
+        self.attribute_index = None
+        self.attribute_value = None
+        self.left_child = None
+        self.right_child = None
+        self.last_node = True
+        pass
