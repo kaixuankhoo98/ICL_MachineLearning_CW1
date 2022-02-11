@@ -4,11 +4,7 @@ import numpy as np
 import max_info_gain
 from classification import DecisionTreeClassifier
 from classificationV2 import ImprovedDecisionTreeClassifier
-from evaluation import confusion_matrix, precision
 from evaluation import accuracy
-from evaluation import recall, precision, f1_score
-import evaluation as ev
-import cross_validation as cv
 
 file_name = "data/train_sub.txt"
 
