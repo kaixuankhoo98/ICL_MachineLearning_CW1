@@ -21,7 +21,7 @@ for i in y:
 y_letters = np.array(y_letters)
 print("Trying fit method")
 classifier = DecisionTreeClassifier()
-classifier.fit(x, y_letters)
+classifier.fit(x, y_letters,7)
 
 # # ===== ------- TRY TRAVERSE AND PRINT TREE ---- ======
 

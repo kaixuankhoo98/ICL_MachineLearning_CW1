@@ -4,6 +4,7 @@ import numpy as np
 import statistics as stats
 import classification as model
 import cross_validation as cv
+import classificationV2 as model2
 from numpy.random import default_rng
 
 def accuracy(y_gold, y_prediction):
@@ -278,6 +279,74 @@ def cross_validation( train_filepath, n_folds ):
 
     # # SHORTCOMING IS THAT THERE ARE SOMETIMES CLASSES THAT ARE AS COMMON AS ONE ANOTHER, PYTHON 3 STATS MODULE PICKS THE FIRST MODAL CLASS
 def modal_cross_validation( test_filepath, classifiers ):
+    
+    # Test Data
+    (x_test, y_test, classes_test) = rd.read_dataset(test_filepath)
+
+    all_predictions = []
+    for i in range( len(classifiers) ):
+        all_predictions.append(classifiers[i].predict(x_test))
+
+    # Iterate through all predictions
+    modal_labels = []
+    for pred in range ( len( all_predictions[0] ) ):
+        list = []
+        # Iterate through each tree
+        for tree in range ( len ( all_predictions ) ):
+            list.append( all_predictions[ tree ][ pred ] )
+        modal_labels.append( stats.mode(list) )
+
+    modal_accuracy = accuracy(y_test, modal_labels)
+
+    return modal_accuracy
+
+
+def cross_validation_improved( train_filepath, n_folds ):
+
+    # Training Data
+    (x, y, classes) = rd.read_dataset( train_filepath )
+    y_letters = []
+    for i in y:
+        y_letters.append(classes[i])
+    y_letters = np.array(y_letters)
+
+    # Set randomness of cross validation
+    seed = 60012
+    rg = default_rng(seed)
+
+    accuracies = np.zeros((n_folds, ))
+    trees = []
+
+    for i, (train_indices, test_indices) in enumerate(cv.train_test_k_fold(n_folds, len(x), rg)):
+        # Get the dataset into correct splits
+        x_train = x[train_indices, :]
+        y_train = y[train_indices]
+        y_train_letters = y_letters[train_indices]
+        x_test = x[test_indices, :]
+        y_test = y[test_indices]
+        y_test_letters = y_letters[test_indices]
+
+        # Train decision tree on data sets
+        classifier = model.DecisionTreeClassifier()
+        classifier.fit_hyper(x_train, y_train_letters, 4)
+        trees.append(classifier)
+
+        # Predict
+        predictions = classifier.predict(x_test)
+
+        # Compute accuracy & add to 'accuracies' array
+        acc = accuracy(y_test, predictions)
+        accuracies[i] = acc
+
+    print("Accuracy array: ", accuracies, '\n')
+    print("Accuracy mean: ", accuracies.mean(), '\n')
+    print("Standard Deviation: ", accuracies.std(), '\n') 
+
+    # Returns trained trees
+    return trees
+
+    # # SHORTCOMING IS THAT THERE ARE SOMETIMES CLASSES THAT ARE AS COMMON AS ONE ANOTHER, PYTHON 3 STATS MODULE PICKS THE FIRST MODAL CLASS
+def modal_cross_validation_improved( test_filepath, classifiers ):
     
     # Test Data
     (x_test, y_test, classes_test) = rd.read_dataset(test_filepath)

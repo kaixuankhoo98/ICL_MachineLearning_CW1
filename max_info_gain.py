@@ -211,8 +211,11 @@ def find_majority_label(y):
         vals, counts = np.unique(y, return_counts=True)
         index = np.argmax(counts)
         return vals[index]
-    else:
-        print("issue here")
+    else: 
+        ## HUGE ISSUE HERE for some reason, the tree splits at the first
+        ## step, but has an empty array causing an issue during example_main
+        ## this issue cannot be replicated in our manipulate_data.py
+        return 0
 
 def visualize_tree(tree):
     print(tree)

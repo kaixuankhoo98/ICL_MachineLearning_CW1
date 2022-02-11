@@ -8,6 +8,8 @@
 ##############################################################################
 
 import numpy as np
+from classificationV2 import ImprovedDecisionTreeClassifier
+from evaluation import accuracy
 
 
 def train_and_predict(x_train, y_train, x_test, x_val, y_val):
@@ -43,13 +45,19 @@ def train_and_predict(x_train, y_train, x_test, x_val, y_val):
 
     # TODO: Train new classifier
 
+    improved_classifier = ImprovedDecisionTreeClassifier()
+    improved_classifier.fit_hyper(x_train, y_train, 4)
+    
+
     # set up an empty (M, ) numpy array to store the predicted labels 
     # feel free to change this if needed
-    predictions = np.zeros((x_test.shape[0],), dtype=np.object)
+    # predictions = np.zeros((x_test.shape[0],), dtype=np.object)
         
-    # TODO: Make predictions on x_test using new classifier        
+    # TODO: Make predictions on x_test using new classifier  
+    improved_predictions = improved_classifier.predict(x_test)
+    improved_predictions = np.array(improved_predictions)     
         
     # remember to change this if you rename the variable
-    return predictions
+    return improved_predictions
 
 
