@@ -19,12 +19,7 @@ for i in y:
 y_letters = np.array(y_letters)
 print("Trying fit method")
 classifier = DecisionTreeClassifier()
-classifier.fit(x, y_letters,7)
-
-# # ===== ------- TRY TRAVERSE AND PRINT TREE ---- ======
-
-print("Trying to traverse and print tree")
-classifier.traverse_and_print_tree()
+classifier.fit(x, y_letters)
 
 # # ===== ------- TRY PREDICT METHOD OF CLASSIFIER V1 ---- ======
 
@@ -41,7 +36,8 @@ improved_classifier.fit(x, y_letters)
 print("Making predictions on the validation dataset.")
 (x_val, y_val, classes_val) = rd.read_dataset("data/validation.txt")
 improved_predictions = improved_classifier.predict(x_val)
-improved_accuracy = accuracy(y_val, improved_predictions)print("The accuracy of improved classifier prior to pruning is ", improved_accuracy)
+improved_accuracy = accuracy(y_val, improved_predictions)
+print("The accuracy of improved classifier prior to pruning is ", improved_accuracy)
 print("Now, trying to prune the improved classifier")
 pruned_accuracy = improved_classifier.test_pruning_tree(improved_classifier.DecisionTree, x_val, y_val, improved_accuracy)
 print("The accuracy of the pruned classifier is ", pruned_accuracy)
