@@ -58,6 +58,33 @@ class DecisionTreeClassifier(object):
         # set a flag so that we know that the classifier has been trained
         self.is_trained = True
 
+    def fit(self, x, y, tune):
+        """Constructs a decision tree classifier from data
+
+        Args:
+        x (numpy.ndarray): Instances, numpy array of shape (N, K)
+                           N is the number of instances
+                           K is the number of attributes
+        y (numpy.ndarray): Class labels, numpy array of shape (N, )
+                           Each element in y is a str
+        """
+
+        # Make sure that x and y have the same number of instances
+        assert x.shape[0] == len(
+            y
+        ), "Training failed. x and y must have the same number of instances."
+
+        #######################################################################
+        #                 ** TASK 2.1: COMPLETE THIS METHOD **
+        #######################################################################
+
+        # convert y into y_index and classes to pass into max info gain functions
+        [classes, y_index] = np.unique(y, return_inverse=True)
+        mig.calculate_best_info_gain(x, y_index, classes)
+        self.DecisionTree = mig.induce_decision_tree2(x, y_index, classes,tune)
+        # set a flag so that we know that the classifier has been trained
+        self.is_trained = True
+
     def predict(self, x):
         """Predicts a set of samples using the trained DecisionTreeClassifier.
 

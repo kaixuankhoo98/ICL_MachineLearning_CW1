@@ -300,16 +300,16 @@ def modal_cross_validation( test_filepath, classifiers ):
     return modal_accuracy
 
     
-# 3.1:
+# # 3.1:
 
-evaluate( 'data/train_full.txt', 'data/test.txt' )
-evaluate( 'data/train_sub.txt', 'data/test.txt' )
-evaluate( 'data/train_noisy.txt', 'data/test.txt' )
+# evaluate( 'data/train_full.txt', 'data/test.txt' )
+# evaluate( 'data/train_sub.txt', 'data/test.txt' )
+# evaluate( 'data/train_noisy.txt', 'data/test.txt' )
 
-# 3.2:
+# # 3.2:
 
-classifiers = cross_validation( 'data/train_full.txt', 10 )
+# classifiers = cross_validation( 'data/train_full.txt', 10 )
 
-# 3.3:
+# # 3.3:
 
-print("modal accuracy: ", modal_cross_validation( 'data/test.txt', classifiers ) )
+# print("modal accuracy: ", modal_cross_validation( 'data/test.txt', classifiers ) )

@@ -178,3 +178,24 @@ def find_majority_label(y):
 
 def visualize_tree(tree):
     print(tree)
+
+def induce_decision_tree2(x, y, classes, tune):
+    """
+
+    Input:
+    """
+    # BASE CASES: all instances in
+    if len(x) < tune or same_labels(y):
+        leaf_node = Node(None, None, x, y, classes)
+        leaf_node.last_node = True
+        return leaf_node
+    else:
+        best_node = find_best_node(x, y, classes)
+        left_x, left_y, left_classes, right_x, right_y, right_classes = split_dataset(
+            x, y, classes, best_node
+        )
+        child_node_left = induce_decision_tree(left_x, left_y, left_classes)
+        best_node.add_child(child_node_left)
+        child_node_right = induce_decision_tree(right_x, right_y, right_classes)
+        best_node.add_child(child_node_right)
+        return best_node
