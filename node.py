@@ -52,8 +52,8 @@ class Node(object):
     # itself using the majority label from the children nodes.
     def make_node_leaf_node(self):
         # find majority label from children.
-        self.x = np.concatenate(self.left_child.x, self.right_child.x)
-        self.y = np.concatenate(self.left_child.y, self.right_child.y)
+        self.x = np.concatenate((self.left_child.x, self.right_child.x))
+        self.y = np.concatenate((self.left_child.y, self.right_child.y))
         #make into a leaf
         self.attribute_index = None
         self.attribute_value = None
