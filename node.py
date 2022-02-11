@@ -59,5 +59,5 @@ class Node(object):
         self.attribute_value = None
         self.left_child = None
         self.right_child = None
-        self.last_self = True
+        self.last_node = True
         pass
