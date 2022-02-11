@@ -125,3 +125,4 @@ class DecisionTreeClassifier(object):
         predictions = np.array(predictions)
 
         return predictions
+
