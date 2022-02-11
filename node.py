@@ -1,4 +1,5 @@
 import numpy as np
+
 class Node(object):
     depth = 0
     left_child = None
@@ -49,12 +50,14 @@ class Node(object):
 
     # helper function for prune_tree-- makes a node with children nodes that are leaf a leaf node
     # itself using the majority label from the children nodes.
-    def make_node_leaf_node(self,node):
+    def make_node_leaf_node(self):
         # find majority label from children.
-        node.x = np.concatenate(node.left_child.x, node.right_child.x)
-        node.y = np.concatenate(node.left_child.y, node.right_child.y)
+        self.x = np.concatenate(self.left_child.x, self.right_child.x)
+        self.y = np.concatenate(self.left_child.y, self.right_child.y)
         #make into a leaf
-        node.attribute_index = None
-        node.attribute_value = None
-        node.last_node = True
+        self.attribute_index = None
+        self.attribute_value = None
+        self.left_child = None
+        self.right_child = None
+        self.last_self = True
         pass
