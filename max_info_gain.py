@@ -151,6 +151,7 @@ def induce_decision_tree(x, y, classes):
     if len(x) < 2 or same_labels(y):
         leaf_node = Node(None, None, x, y, classes)
         leaf_node.last_node = True
+        # print("len(x): ", len(x), " & same labels: ", same_labels(y))
         return leaf_node
     else:
         best_node = find_best_node(x, y, classes)
@@ -162,6 +163,40 @@ def induce_decision_tree(x, y, classes):
         child_node_right = induce_decision_tree(right_x, right_y, right_classes)
         best_node.add_child(child_node_right)
         return best_node
+
+def induce_decision_tree2(x, y, classes, tune):
+    """
+
+    Input:
+    """
+    # BASE CASES: all instances in
+    if ( len(x) <= tune ):
+        majority_label = find_majority_label(y)
+        
+        # Change all data lables to majority label
+        for i in range( len(y) ):
+            y[i] = majority_label
+
+        leaf_node = Node(None, None, x, y, classes)
+        leaf_node.last_node = True
+        return leaf_node
+
+    if same_labels(y):
+        # print("tune: ", tune, ", len(x): ", len(x), " & same labels: ", same_labels(y))
+        leaf_node = Node(None, None, x, y, classes)
+        leaf_node.last_node = True
+        return leaf_node
+    else:
+        best_node = find_best_node(x, y, classes)
+        left_x, left_y, left_classes, right_x, right_y, right_classes = split_dataset(
+            x, y, classes, best_node
+        )
+        child_node_left = induce_decision_tree2(left_x, left_y, left_classes, tune)
+        best_node.add_child(child_node_left)
+        child_node_right = induce_decision_tree2(right_x, right_y, right_classes, tune)
+        best_node.add_child(child_node_right)
+        return best_node
+
 
 
 def find_majority_label(y):
