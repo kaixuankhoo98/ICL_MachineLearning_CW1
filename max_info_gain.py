@@ -207,9 +207,12 @@ def find_majority_label(y):
     Returns:
     the majority class label in y
     """
-    vals, counts = np.unique(y, return_counts=True)
-    index = np.argmax(counts)
-    return vals[index]
+    if y.any():
+        vals, counts = np.unique(y, return_counts=True)
+        index = np.argmax(counts)
+        return vals[index]
+    else:
+        print("issue here")
 
 def visualize_tree(tree):
     print(tree)
