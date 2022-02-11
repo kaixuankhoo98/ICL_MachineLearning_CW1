@@ -104,7 +104,6 @@ def find_best_node(x, y, classes):
 
 # helper function for induce_decision_tree
 def same_labels(y):
-    # TODO: think about optimizing using an ndarry method instead.
     test = y[0]
     for i in y:
         if test != i:
@@ -133,7 +132,7 @@ def split_dataset(x, y, classes, best_node):
         right_child_classes,
     )
 
-
+# helper function for induce_decision_tree
 def no_more_splits(x):
     if len(x) < 2:
         return True
@@ -164,7 +163,8 @@ def induce_decision_tree(x, y, classes):
         best_node.add_child(child_node_right)
         return best_node
 
-def induce_decision_tree2(x, y, classes, tune):
+# improved version of induce_decision_tree that uses optimal hyperparameter value
+def induce_decision_tree_tuned(x, y, classes, tune):
     """
 
     Input:
@@ -191,14 +191,14 @@ def induce_decision_tree2(x, y, classes, tune):
         left_x, left_y, left_classes, right_x, right_y, right_classes = split_dataset(
             x, y, classes, best_node
         )
-        child_node_left = induce_decision_tree2(left_x, left_y, left_classes, tune)
+        child_node_left = induce_decision_tree_tuned(left_x, left_y, left_classes, tune)
         best_node.add_child(child_node_left)
-        child_node_right = induce_decision_tree2(right_x, right_y, right_classes, tune)
+        child_node_right = induce_decision_tree_tuned(right_x, right_y, right_classes, tune)
         best_node.add_child(child_node_right)
         return best_node
 
 
-
+# helper function for predict method
 def find_majority_label(y):
     """
     Input:
@@ -216,6 +216,3 @@ def find_majority_label(y):
         ## step, but has an empty array causing an issue during example_main
         ## this issue cannot be replicated in our manipulate_data.py
         return 0
-
-def visualize_tree(tree):
-    print(tree)

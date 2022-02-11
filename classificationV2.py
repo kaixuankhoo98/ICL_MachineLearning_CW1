@@ -87,7 +87,7 @@ class ImprovedDecisionTreeClassifier(object):
         # convert y into y_index and classes to pass into max info gain functions
         [classes, y_index] = np.unique(y, return_inverse=True)
         mig.calculate_best_info_gain(x, y_index, classes)
-        self.DecisionTree = mig.induce_decision_tree2(x, y_index, classes,tune)
+        self.DecisionTree = mig.induce_decision_tree_tuned(x, y_index, classes,tune)
         # set a flag so that we know that the classifier has been trained
         self.is_trained = True
 

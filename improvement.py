@@ -43,7 +43,7 @@ def train_and_predict(x_train, y_train, x_test, x_val, y_val):
     #######################################################################
        
 
-    # TODO: Train new classifier
+    # Train new classifier
 
     improved_classifier = ImprovedDecisionTreeClassifier()
     improved_classifier.fit_hyper(x_train, y_train, 4)
@@ -53,11 +53,16 @@ def train_and_predict(x_train, y_train, x_test, x_val, y_val):
     # feel free to change this if needed
     # predictions = np.zeros((x_test.shape[0],), dtype=np.object)
         
-    # TODO: Make predictions on x_test using new classifier  
-    improved_predictions = improved_classifier.predict(x_test)
+    # Make predictions on x_test using new classifier 
+    improved_predictions = improved_classifier.predict(x_val)
+    improved_accuracy = accuracy(y_val, improved_predictions)
+    print("The accuracy of improved classifier prior to pruning is ", improved_accuracy)
+    print("Now, trying to prune the improved classifier")
+    pruned_accuracy = improved_classifier.test_pruning_tree(improved_classifier.DecisionTree, x_val, y_val, improved_accuracy)
+    print("The accuracy of the pruned classifier is ", pruned_accuracy)
+    print("Predicting with pruned tree now:")
+    improved_predictions = improved_classifier.predict(x_val)
     improved_predictions = np.array(improved_predictions)     
         
-    # remember to change this if you rename the variable
     return improved_predictions
-
 

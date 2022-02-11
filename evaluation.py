@@ -105,16 +105,7 @@ def precision(y_gold, y_prediction):
     p = np.zeros((len(confusion), ))
     for c in range(confusion.shape[0]):
         if np.sum(confusion[:, c]) > 0:
-            p[c] = confusion[c, c] / np.sum(confusion[:, c])
-
-    ## Alternative solution without computing the confusion matrix
-    #class_labels = np.unique(np.concatenate((y_gold, y_prediction)))
-    #p = np.zeros((len(class_labels), ))
-    #for (c, label) in enumerate(class_labels):
-    #    indices = (y_prediction == label) # get instances predicted as label
-    #    correct = np.sum(y_gold[indices] == y_prediction[indices]) # intersection
-    #    if np.sum(indices) > 0:
-    #        p[c] = correct / np.sum(indices)     
+            p[c] = confusion[c, c] / np.sum(confusion[:, c])   
 
     # Compute the macro-averaged precision
     macro_p = 0.
@@ -145,16 +136,7 @@ def recall(y_gold, y_prediction):
     r = np.zeros((len(confusion), ))
     for c in range(confusion.shape[0]):
         if np.sum(confusion[c, :]) > 0:
-            r[c] = confusion[c, c] / np.sum(confusion[c, :])
-
-    ## Alternative solution without computing the confusion matrix
-    #class_labels = np.unique(np.concatenate((y_gold, y_prediction)))
-    #r = np.zeros((len(class_labels), ))
-    #for (c, label) in enumerate(class_labels):
-    #    indices = (y_gold == label) # get instances for current label
-    #    correct = np.sum(y_gold[indices] == y_prediction[indices]) # intersection
-    #    if np.sum(indices) > 0:
-    #        r[c] = correct / np.sum(indices)     
+            r[c] = confusion[c, c] / np.sum(confusion[c, :])  
 
     # Compute the macro-averaged recall
     macro_r = 0.
@@ -367,18 +349,3 @@ def modal_cross_validation_improved( test_filepath, classifiers ):
     modal_accuracy = accuracy(y_test, modal_labels)
 
     return modal_accuracy
-
-    
-# # 3.1:
-
-# evaluate( 'data/train_full.txt', 'data/test.txt' )
-# evaluate( 'data/train_sub.txt', 'data/test.txt' )
-# evaluate( 'data/train_noisy.txt', 'data/test.txt' )
-
-# # 3.2:
-
-# classifiers = cross_validation( 'data/train_full.txt', 10 )
-
-# # 3.3:
-
-# print("modal accuracy: ", modal_cross_validation( 'data/test.txt', classifiers ) )

@@ -1,60 +1,13 @@
-## Introduction to Machine Learning: Coursework 1 (Decision Trees)
+## notes on code files
 
-### Introduction
-
-This repository contains the skeleton code and dataset files that you need 
-in order to complete the coursework.
-
-
-### Data
-
-The ``data/`` directory contains the datasets you need for the coursework.
-
-The primary datasets are:
-- ``train_full.txt``
-- ``train_sub.txt``
-- ``train_noisy.txt``
-- ``validation.txt``
-
-Some simpler datasets that you may use to help you with implementation or 
-debugging:
-- ``toy.txt``
-- ``simple1.txt``
-- ``simple2.txt``
-
-The official test set is ``test.txt``. Please use this dataset sparingly and 
-purely to report the results of evaluation. Do not use this to optimise your 
-classifier (use ``validation.txt`` for this instead). 
-
-
-### Codes
-
-- ``classification.py``
-
-	* Contains the skeleton code for the ``DecisionTreeClassifier`` class. Your task 
-is to implement the ``train()`` and ``predict()`` methods.
-
-
-- ``improvement.py``
-
-	* Contains the skeleton code for the ``train_and_predict()`` function (Task 4.1).
-Complete this function as an interface to your new/improved decision tree classifier.
-
-
-- ``example_main.py``
-
-	* Contains an example of how the evaluation script on LabTS might use the classes
-and invoke the methods/functions defined in ``classification.py`` and ``improvement.py``.
-
-
-### Instructions
-
-- ``read_data.py``
-
-	* Methods and functions described in this file:
-		- `read_dataset(filename)` takes a file and returns a tuple of x, y and classes
-		- `display_data_information(x,y,classes)` prints to screen some basic information about the dataset
-		- `understand_attributes(x)` displays information about the dataset x (min, max, etc.) <incomplete>
-
-
-
+We've included the following additional files for running our code:
+- `manipulate_data.py` 
+  - we used this file as to run driver code to test our functions. For some reason, example_main led us to issues in find_majority_label, though we cannot figure out why. We've added comments to the function on the error.  
+- `max_info_gain.py` 
+  - this file contains all the functions we use in `fit` and `predict`
+- `classificationV2.py`
+  - this file contains our improved classifier object and its various methods.
+- `evaluation.py`
+  - this file contains all the functions we used for answering parts 3 and 4.
+- `node.py`
+  - this file contains our custom `Node` class, which our classifiers are made up of.
